@@ -10,9 +10,6 @@ export default function About() {
     >
       <div className="grid gap-16 lg:grid-cols-12">
         <div className="lg:col-span-7 space-y-6 text-[15px] leading-relaxed text-ink/85">
-          <div className="float-right ml-6 mb-4 hidden w-40 overflow-hidden rounded-xl border border-line bg-accent-soft sm:block">
-            <img src="./sushanth.png" alt="Sushanth Kasturi" className="block h-auto w-full" />
-          </div>
           <p>
             AvlokAI helps small and mid-sized businesses replace manual, repetitive operations
             with autonomous AI workflows like lead-gen agents, inbox triage, RAG knowledge

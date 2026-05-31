@@ -38,18 +38,7 @@ export default function Home() {
           </div>
 
           <aside className="lg:col-span-4">
-            <div className="relative mx-auto max-w-[320px] lg:max-w-none">
-              <div className="absolute inset-0 -z-10 translate-x-3 translate-y-3 rounded-2xl bg-accent-soft" aria-hidden />
-              <div className="overflow-hidden rounded-2xl border border-line bg-gradient-to-b from-accent-soft to-canvas">
-                <img
-                  src="./sushanth.png"
-                  alt="Sushanth Kasturi"
-                  className="block h-auto w-full select-none object-cover"
-                  draggable={false}
-                />
-              </div>
-            </div>
-            <dl className="mt-6 grid grid-cols-2 gap-4 text-sm lg:grid-cols-1">
+            <dl className="grid grid-cols-2 gap-4 text-sm lg:grid-cols-1">
               <div>
                 <dt className="font-mono text-[10px] uppercase tracking-widest text-muted">Now</dt>
                 <dd className="mt-1">Running AvlokAI</dd>
