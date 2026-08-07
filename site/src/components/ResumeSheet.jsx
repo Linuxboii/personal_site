@@ -17,9 +17,11 @@ export default function ResumeSheet() {
       <Section title="Summary">
         <p>
           Founder of AvlokAI, an AI automation agency designing autonomous workflows, AI agents,
-          and integrations for small and mid-sized businesses. Cybersecurity practitioner with
-          hands-on experience in VAPT, SOC operations (Wazuh, Suricata, ELK), and digital forensics.
-          Currently pursuing a B.Sc in Cognitive Systems at Loyola Academy.
+          and integrations for small and mid-sized businesses. Shipped Consensus Engine, a 20-agent
+          idea evaluation product, and Gatecheck, a pre-submission audit for research manuscripts.
+          Cybersecurity practitioner with hands-on experience in VAPT, SOC operations (Wazuh,
+          Suricata, ELK), and digital forensics. Currently pursuing a B.Sc in Cognitive Systems at
+          Loyola Academy.
         </p>
       </Section>
 

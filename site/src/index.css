@@ -28,7 +28,6 @@ html, body, #root {
 
 body {
   @apply bg-canvas text-ink font-sans antialiased;
-  font-feature-settings: 'ss01', 'cv11';
 }
 
 ::selection {
@@ -37,6 +36,28 @@ body {
 }
 
 .hairline { @apply border-line; }
+
+@layer components {
+  /* Single source of truth for horizontal rhythm. Wider than the old
+     max-w-6xl so wide screens read as a filled page, not a centered column. */
+  .shell {
+    @apply mx-auto w-full max-w-shell px-6 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted;
+  }
+
+  .chip {
+    @apply rounded-full bg-accent-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-accent;
+  }
+}
+
+/* Bricolage is a wide grotesque; pull it in at display sizes. */
+.font-display {
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+}
 
 /* Page transitions */
 .page-enter {
@@ -59,3 +80,11 @@ body {
 
 .print-only { display: none; }
 .print-only.pdf-export { display: block !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
