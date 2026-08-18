@@ -52,6 +52,29 @@ export const skills = {
    without appearing on the home page. */
 export const projects = [
   {
+    title: 'Mula Map',
+    role: 'Product',
+    year: '2026',
+    lead: true,
+    featured: true,
+    kicker: 'Find the idea that broke.',
+    summary:
+      'A score tells you that someone is wrong. Mula Map tells you which idea is wrong, and proves it. Wrong answers are produced by consistent faulty rules, so the session bisects a prerequisite graph of 118 concepts to locate the root broken concept, names the rule behind it, and shows the evidence that ruled everything else out.',
+    detail: [
+      'Binary search over a prerequisite graph — a correct answer clears a concept and everything above it',
+      'Every distractor is the exact output of one of 99 named faulty rules, never filler',
+      'Refuses by default: the same rule must fire twice, differently framed, or the session ends inconclusive',
+      'Published bench numbers per domain, reproducible with a seeded run',
+    ],
+    stats: [
+      { value: '118', label: 'Atomic concepts' },
+      { value: '99', label: 'Named faulty rules' },
+      { value: '9', label: 'Domains' },
+    ],
+    stack: ['Python', 'Concept graph', 'Adaptive diagnostics', 'Rules engine'],
+    link: 'https://mula-map.avlokai.com/',
+  },
+  {
     title: 'Consensus Engine',
     role: 'Product',
     year: '2026',

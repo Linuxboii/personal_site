@@ -58,9 +58,12 @@ export default function Home() {
               All projects →
             </Link>
           </div>
-          <StaggerGroup className="grid gap-6 lg:grid-cols-2">
+          <StaggerGroup className="grid gap-6 lg:grid-cols-3">
             {featured.map((p) => (
-              <StaggerItem key={p.title} className="flex flex-col rounded-xl border border-line p-7 transition hover:border-ink/40">
+              <StaggerItem
+                key={p.title}
+                className="flex flex-col rounded-xl border border-line p-7 transition hover:border-ink/40"
+              >
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-display text-2xl font-semibold">{p.title}</h3>
                   <span className="font-mono text-[10px] uppercase tracking-widest text-muted">{p.year}</span>

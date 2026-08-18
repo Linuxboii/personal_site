@@ -5,7 +5,7 @@ import { StaggerGroup, StaggerItem } from '../components/Reveal.jsx';
 
 const meta = [
   { label: 'Projects', value: `${projects.length} listed` },
-  { label: 'Products', value: 'Consensus Engine · Gatecheck' },
+  { label: 'Products', value: 'Mula Map · Consensus Engine · Gatecheck' },
   { label: 'Focus', value: 'AI automation · Security' },
 ];
 
@@ -32,26 +32,27 @@ function VisitLink({ href, label = 'Visit' }) {
   );
 }
 
-/* The two products the page leads with. Same width, same treatment, so
-   neither reads as ranked above the other. */
+/* The products the page leads with. One row, equal width, identical treatment,
+   so none of them reads as ranked above the others. Type steps up at xl where
+   the column is wide enough to carry it. */
 function LeadCard({ p }) {
   return (
-    <StaggerItem className="flex flex-col rounded-xl border border-line p-7 transition hover:border-ink/40 sm:col-span-2 sm:p-9 lg:col-span-3">
+    <StaggerItem className="flex flex-col rounded-xl border border-line p-7 transition hover:border-ink/40 sm:col-span-2 sm:p-9 lg:col-span-2 lg:p-7 xl:p-9">
       <div className="flex items-baseline justify-between gap-4">
         <p className="eyebrow">{p.role}</p>
         {p.year && <span className="font-mono text-[10px] uppercase tracking-widest text-muted">{p.year}</span>}
       </div>
 
-      <h2 className="mt-5 font-display text-4xl font-semibold leading-tight">{p.title}</h2>
-      {p.kicker && <p className="mt-3 font-display text-xl text-accent">{p.kicker}</p>}
+      <h2 className="mt-5 font-display text-3xl font-semibold leading-tight xl:text-4xl">{p.title}</h2>
+      {p.kicker && <p className="mt-3 font-display text-lg text-accent xl:text-xl">{p.kicker}</p>}
       <p className="mt-5 text-[15px] leading-relaxed text-ink/80">{p.summary}</p>
 
       {p.stats && (
-        <dl className="mt-7 grid grid-cols-3 gap-4 border-y border-line py-5">
+        <dl className="mt-7 grid grid-cols-3 gap-3 border-y border-line py-5 xl:gap-4">
           {p.stats.map((s) => (
             <div key={s.label}>
               <dt className="sr-only">{s.label}</dt>
-              <dd className="font-display text-2xl font-semibold leading-none">{s.value}</dd>
+              <dd className="font-display text-xl font-semibold leading-none xl:text-2xl">{s.value}</dd>
               <p className="mt-2 font-mono text-[10px] uppercase leading-tight tracking-widest text-muted">
                 {s.label}
               </p>
