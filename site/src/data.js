@@ -52,7 +52,31 @@ export const skills = {
    without appearing on the home page. */
 export const projects = [
   {
+    title: 'OncoLens',
+    role: 'Product',
+    year: '2026',
+    lead: true,
+    kicker: 'Not a chatbot that talks about biomedicine. A retrieval system that happens to speak.',
+    short: 'Grounded biomedical research assistant for oncology drug discovery. Every claim binds back to the record it came from.',
+    summary:
+      'A research assistant for oncology drug discovery that retrieves from real biomedical data and binds every claim to the record it came from. Grounding is architectural, not a line in a prompt: the query is resolved to a ChEMBL identifier before retrieval, answers are assembled only from retrieved passages, and below a confidence threshold the assistant declines and names what it could not find.',
+    detail: [
+      'Resolve → retrieve → generate → validate, with a strict JSON contract that strips unsupported citations',
+      'Retrieved evidence and model inference are rendered differently, always — never confusable',
+      'Numbers stay in SQL tables, never paraphrased: IC₅₀, Lipinski, phase and trial status read from the database',
+      'Drug–target predictions from ECFP4 fingerprints and gradient-boosted trees, validated on a scaffold split, labelled as predictions with calibrated probabilities',
+    ],
+    stats: [
+      { value: '0.952', label: 'Mean ROC-AUC' },
+      { value: '15', label: 'Oncology targets' },
+      { value: '27K', label: 'Embedded passages' },
+    ],
+    stack: ['RAG', 'PostgreSQL', 'ChEMBL / PubMed', 'FastAPI', 'Python'],
+    link: 'https://oncolens.avlokai.com',
+  },
+  {
     title: 'Mula Map',
+    short: 'A score says someone is wrong. Mula Map names which idea broke, and proves it.',
     role: 'Product',
     year: '2026',
     lead: true,
@@ -76,6 +100,7 @@ export const projects = [
   },
   {
     title: 'Consensus Engine',
+    short: 'Pitch an idea to twenty independent AI agents and read the real spread of opinion.',
     role: 'Product',
     year: '2026',
     lead: true,
@@ -97,6 +122,7 @@ export const projects = [
   },
   {
     title: 'Gatecheck',
+    short: 'Pre-submission audit for research manuscripts: citations, novelty and patent risk in one pass.',
     role: 'Product',
     year: '2026',
     lead: true,
@@ -119,6 +145,7 @@ export const projects = [
   },
   {
     title: 'AvlokAI',
+    short: 'The AI automation agency behind the work — autonomous workflows and agents for SMBs.',
     role: 'Founder',
     year: '2025',
     featured: true,
@@ -135,6 +162,7 @@ export const projects = [
   },
   {
     title: 'Autonomous Lead-Gen Agent',
+    short: 'Researches prospects, drafts outreach, schedules sends, logs replies. ~30 hrs/week saved.',
     role: 'Build',
     year: '2025',
     summary:
@@ -144,6 +172,7 @@ export const projects = [
   },
   {
     title: 'RAG Knowledge Assistant',
+    short: 'Retrieval-augmented chatbot grounded in internal docs, with hybrid search and citations.',
     role: 'Build',
     year: '2025',
     summary:
@@ -153,6 +182,7 @@ export const projects = [
   },
   {
     title: 'SOC Lab with Wazuh, Suricata, ELK',
+    short: 'Full Blue Team lab: log monitoring, threat detection, automated malware removal.',
     role: 'Build',
     year: '2025',
     summary:
@@ -162,6 +192,7 @@ export const projects = [
   },
   {
     title: 'Python Network Scanner',
+    short: 'CLI tool that sweeps a local network and writes structured IP/MAC output.',
     role: 'Build',
     year: '2024',
     summary:
@@ -171,6 +202,7 @@ export const projects = [
   },
   {
     title: 'Digital Forensics Casework',
+    short: 'Malware, mobile and dark-web investigations reported with full evidence chains.',
     role: 'Training engagements',
     year: '2023—25',
     summary:

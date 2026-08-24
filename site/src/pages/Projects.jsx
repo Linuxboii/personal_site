@@ -5,112 +5,58 @@ import { StaggerGroup, StaggerItem } from '../components/Reveal.jsx';
 
 const meta = [
   { label: 'Projects', value: `${projects.length} listed` },
-  { label: 'Products', value: 'Mula Map · Consensus Engine · Gatecheck' },
+  { label: 'Products', value: 'OncoLens · Mula Map · Consensus Engine · Gatecheck' },
   { label: 'Focus', value: 'AI automation · Security' },
 ];
 
-function StackList({ items }) {
+/* Every project is the same square tile — the grid reads as one block of
+   equal panels rather than a ranked column of long cards. Nothing about the
+   tile grows with the project, so the copy is clamped to the space it has:
+   `short` in data.js is the line written for this width, and `summary` is
+   only the fallback. Depth lives behind the link, not in the tile. */
+function Tile({ p }) {
+  const shown = p.stack.slice(0, 3);
+  const rest = p.stack.length - shown.length;
+
   return (
-    <ul className="flex flex-wrap gap-2">
-      {items.map((s) => (
-        <li key={s} className="chip">{s}</li>
-      ))}
-    </ul>
-  );
-}
+    <StaggerItem className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+      <article className="flex aspect-square flex-col overflow-hidden rounded-xl border border-line p-6 transition hover:border-ink/40 sm:p-7">
+        <div className="flex items-baseline justify-between gap-3">
+          <p className="eyebrow">{p.role}</p>
+          {p.year && <span className="font-mono text-[10px] uppercase tracking-widest text-muted">{p.year}</span>}
+        </div>
 
-function VisitLink({ href, label = 'Visit' }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex w-fit items-center gap-1.5 border-b border-ink/20 pb-0.5 text-sm font-medium transition hover:border-ink"
-    >
-      {label} <ArrowUpRight size={14} />
-    </a>
-  );
-}
+        <h2 className="mt-4 line-clamp-2 font-display text-2xl font-semibold leading-tight">{p.title}</h2>
 
-/* The products the page leads with. One row, equal width, identical treatment,
-   so none of them reads as ranked above the others. Type steps up at xl where
-   the column is wide enough to carry it. */
-function LeadCard({ p }) {
-  return (
-    <StaggerItem className="flex flex-col rounded-xl border border-line p-7 transition hover:border-ink/40 sm:col-span-2 sm:p-9 lg:col-span-2 lg:p-7 xl:p-9">
-      <div className="flex items-baseline justify-between gap-4">
-        <p className="eyebrow">{p.role}</p>
-        {p.year && <span className="font-mono text-[10px] uppercase tracking-widest text-muted">{p.year}</span>}
-      </div>
+        {p.kicker && (
+          <p className="mt-2 line-clamp-2 font-display text-[15px] leading-snug text-accent">{p.kicker}</p>
+        )}
 
-      <h2 className="mt-5 font-display text-3xl font-semibold leading-tight xl:text-4xl">{p.title}</h2>
-      {p.kicker && <p className="mt-3 font-display text-lg text-accent xl:text-xl">{p.kicker}</p>}
-      <p className="mt-5 text-[15px] leading-relaxed text-ink/80">{p.summary}</p>
+        <p className={`mt-3 text-sm leading-relaxed text-ink/80 ${p.kicker ? 'line-clamp-3' : 'line-clamp-4'}`}>
+          {p.short || p.summary}
+        </p>
 
-      {p.stats && (
-        <dl className="mt-7 grid grid-cols-3 gap-3 border-y border-line py-5 xl:gap-4">
-          {p.stats.map((s) => (
-            <div key={s.label}>
-              <dt className="sr-only">{s.label}</dt>
-              <dd className="font-display text-xl font-semibold leading-none xl:text-2xl">{s.value}</dd>
-              <p className="mt-2 font-mono text-[10px] uppercase leading-tight tracking-widest text-muted">
-                {s.label}
-              </p>
-            </div>
-          ))}
-        </dl>
-      )}
+        <div className="mt-auto flex items-end justify-between gap-4 pt-5">
+          <ul className="flex flex-wrap gap-1.5">
+            {shown.map((s) => (
+              <li key={s} className="chip">{s}</li>
+            ))}
+            {rest > 0 && <li className="chip">+{rest}</li>}
+          </ul>
 
-      {p.detail && (
-        <ul className="mt-6 space-y-2.5 text-sm text-muted">
-          {p.detail.map((d) => (
-            <li key={d} className="flex gap-3">
-              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-              <span>{d}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className="mt-auto pt-7">
-        <StackList items={p.stack} />
-      </div>
-
-      {p.link && <div className="mt-5">{<VisitLink href={p.link} label={`Open ${p.title}`} />}</div>}
-    </StaggerItem>
-  );
-}
-
-function Card({ p }) {
-  return (
-    <StaggerItem className="flex flex-col rounded-xl border border-line p-7 transition hover:border-ink/40 lg:col-span-2">
-      <div className="flex items-baseline justify-between gap-4">
-        <p className="eyebrow">{p.role}</p>
-        {p.year && <span className="font-mono text-[10px] uppercase tracking-widest text-muted">{p.year}</span>}
-      </div>
-
-      <h2 className="mt-4 font-display text-2xl font-semibold leading-tight">{p.title}</h2>
-
-      {p.kicker && <p className="mt-2 font-display text-lg text-accent">{p.kicker}</p>}
-
-      <p className="mt-4 text-[15px] leading-relaxed text-ink/80">{p.summary}</p>
-
-      {p.detail && (
-        <ul className="mt-6 space-y-2 text-sm text-muted">
-          {p.detail.map((d) => (
-            <li key={d} className="flex gap-3">
-              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-              <span>{d}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className="mt-auto pt-7">
-        <StackList items={p.stack} />
-      </div>
-
-      {p.link && <div className="mt-5">{<VisitLink href={p.link} />}</div>}
+          {p.link && (
+            <a
+              href={p.link}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open ${p.title}`}
+              className="shrink-0 rounded-full border border-line p-2 text-muted transition hover:border-ink hover:text-ink"
+            >
+              <ArrowUpRight size={16} />
+            </a>
+          )}
+        </div>
+      </article>
     </StaggerItem>
   );
 }
@@ -123,8 +69,12 @@ export default function Projects() {
       lede="A mix of AvlokAI products, AI automation builds, and cybersecurity labs. Client projects are anonymized or omitted; everything below is mine to talk about."
       meta={meta}
     >
-      <StaggerGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-6" stagger={0.08}>
-        {projects.map((p) => (p.lead ? <LeadCard key={p.title} p={p} /> : <Card key={p.title} p={p} />))}
+      {/* flex-wrap rather than grid: a last row that does not fill centers
+          itself instead of hanging off the left edge. */}
+      <StaggerGroup className="flex flex-wrap justify-center gap-6" stagger={0.06}>
+        {projects.map((p) => (
+          <Tile key={p.title} p={p} />
+        ))}
       </StaggerGroup>
     </PageShell>
   );
