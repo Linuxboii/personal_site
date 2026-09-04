@@ -362,6 +362,25 @@ html[data-mode='max'] header.sticky button.rounded-full.border {
   border-color: var(--mx-block-fg);
 }
 
+/* The mobile menu drops out of the masthead, so it continues the same block
+   fill. Its .bg-canvas would otherwise put the inverted labels on the page
+   colour, leaving them invisible, and its ink rules on the block fill. */
+html[data-mode='max'] header.sticky > nav {
+  background-color: var(--mx-block);
+  border-top-color: color-mix(in srgb, var(--mx-block-fg) 32%, transparent);
+}
+
+html[data-mode='max'] header.sticky > nav a {
+  border-bottom-color: color-mix(in srgb, var(--mx-block-fg) 22%, transparent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+html[data-mode='max'] header.sticky > nav a[aria-current='page'],
+html[data-mode='max'] header.sticky > nav a:hover {
+  color: var(--mx-accent-on-block);
+}
+
 /* The sliding nav cursor becomes the accent, and its label flips to read. */
 html[data-mode='max'] li.pointer-events-none.rounded-full {
   border-radius: 0;
