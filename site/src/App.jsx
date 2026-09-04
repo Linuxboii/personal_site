@@ -11,6 +11,8 @@ import About from './pages/About.jsx';
 import Skills from './pages/Skills.jsx';
 import Projects from './pages/Projects.jsx';
 import Contact from './pages/Contact.jsx';
+import NotFound from './pages/NotFound.jsx';
+import Seo from './components/Seo.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -28,7 +30,7 @@ function AnimatedRoutes() {
         <Route path="/skills" element={<PageTransition><Skills /></PageTransition>} />
         <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-        <Route path="*" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );
@@ -37,6 +39,7 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo />
       <ScrollToTop />
       <NavBar />
       <main className="flex-1">

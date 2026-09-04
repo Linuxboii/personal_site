@@ -2,16 +2,113 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Sushanth Kasturi - Founder of AvlokAI, an AI automation agency. Building autonomous workflows, AI agents, and integrations. Background in cybersecurity, VAPT, and digital forensics." />
+
+    <!-- Primary. scripts/prerender.mjs rewrites these per route at build time. -->
+    <title>Sushanth Kasturi — Founder, AvlokAI</title>
+    <meta name="description" content="Sushanth Kasturi is the founder of AvlokAI, an AI automation agency building autonomous workflows, AI agents, and integrations. Background in cybersecurity, VAPT, and digital forensics." />
+    <link rel="canonical" href="https://sushanth.avlokai.com/" />
+    <meta name="author" content="Sushanth Kasturi" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sushanth Kasturi" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Sushanth Kasturi — Founder, AvlokAI" />
+    <meta property="og:description" content="Sushanth Kasturi is the founder of AvlokAI, an AI automation agency building autonomous workflows, AI agents, and integrations. Background in cybersecurity, VAPT, and digital forensics." />
+    <meta property="og:url" content="https://sushanth.avlokai.com/" />
+    <meta property="og:image" content="https://sushanth.avlokai.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sushanth Kasturi — Founder, AvlokAI" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sushanth Kasturi — Founder, AvlokAI" />
+    <meta name="twitter:description" content="Sushanth Kasturi is the founder of AvlokAI, an AI automation agency building autonomous workflows, AI agents, and integrations. Background in cybersecurity, VAPT, and digital forensics." />
+    <meta name="twitter:image" content="https://sushanth.avlokai.com/og-image.png" />
+
+    <!-- Icons & chrome -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/og-image.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#FAFAF7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <title>Sushanth Kasturi - Founder, AvlokAI</title>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://sushanth.avlokai.com/#person",
+            "name": "Sushanth Kasturi",
+            "url": "https://sushanth.avlokai.com",
+            "image": "https://sushanth.avlokai.com/og-image.png",
+            "jobTitle": "Founder, AvlokAI",
+            "email": "mailto:sushanth@avlokai.com",
+            "telephone": "+91 8247686179",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Hyderabad",
+              "addressCountry": "IN"
+            },
+            "worksFor": {
+              "@type": "Organization",
+              "name": "AvlokAI",
+              "url": "https://avlokai.com",
+              "description": "AI automation agency building autonomous workflows, AI agents, and integrations."
+            },
+            "knowsAbout": [
+              "AI automation",
+              "AI agents",
+              "LLM engineering",
+              "Retrieval-augmented generation",
+              "Workflow automation",
+              "Cybersecurity",
+              "Penetration testing",
+              "Digital forensics"
+            ],
+            "sameAs": [
+              "https://github.com/Linuxboii",
+              "https://www.linkedin.com/in/sushanthkasturi/",
+              "https://avlokai.com"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://sushanth.avlokai.com/#website",
+            "url": "https://sushanth.avlokai.com",
+            "name": "Sushanth Kasturi — Founder, AvlokAI",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://sushanth.avlokai.com/#person" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <h1>Sushanth Kasturi — Founder, AvlokAI</h1>
+      <p>
+        I run AvlokAI, an AI automation agency that designs autonomous workflows, AI agents, and
+        integrations for small and mid-sized businesses. Before that, and still alongside it,
+        cybersecurity: VAPT, SOC operations on Wazuh, Suricata and ELK, and digital forensics.
+        Based in Hyderabad, India.
+      </p>
+      <p>This site needs JavaScript for navigation. Reach me at sushanth@avlokai.com.</p>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/skills">Skills</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

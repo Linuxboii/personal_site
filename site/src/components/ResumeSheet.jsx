@@ -4,7 +4,7 @@ export default function ResumeSheet() {
   return (
     <div id="resume-sheet" className="resume-sheet print-only mx-auto max-w-[820px] bg-white p-10 text-[12px] leading-snug text-black">
       <header className="border-b border-black/80 pb-4">
-        <h1 className="text-[26px] font-bold tracking-tight">{profile.name}</h1>
+        <p className="text-[26px] font-bold tracking-tight">{profile.name}</p>
         <p className="mt-1 text-[13px] font-medium">{profile.role}, AI Automation Agency</p>
         <p className="mt-2 text-[11px]">
           {profile.emailPrimary} · {profile.emailFallback} · {profile.phone} · {profile.location}
