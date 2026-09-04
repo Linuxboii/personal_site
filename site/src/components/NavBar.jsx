@@ -4,6 +4,8 @@ import { Menu, X } from 'lucide-react';
 import { navLinks } from '../data.js';
 import NavHeader from './NavHeader.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
+import ModeToggle from './ModeToggle.jsx';
+import { MaxTicker } from './MaxDecor.jsx';
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
@@ -23,6 +25,7 @@ export default function NavBar() {
         </div>
 
         <div className="flex items-center gap-2">
+          <ModeToggle />
           <ThemeToggle />
           <button
             aria-label="Toggle menu"
@@ -33,6 +36,8 @@ export default function NavBar() {
           </button>
         </div>
       </div>
+
+      <MaxTicker />
 
       {open && (
         <nav className="md:hidden border-t border-line bg-canvas">

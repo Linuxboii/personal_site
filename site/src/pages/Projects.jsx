@@ -19,7 +19,7 @@ function Tile({ p }) {
   const rest = p.stack.length - shown.length;
 
   return (
-    <StaggerItem className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+    <StaggerItem className="mx-tile w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
       <article className="flex aspect-square flex-col overflow-hidden rounded-xl border border-line p-6 transition hover:border-ink/40 sm:p-7">
         <div className="flex items-baseline justify-between gap-3">
           <p className="eyebrow">{p.role}</p>

@@ -13,6 +13,7 @@ import Projects from './pages/Projects.jsx';
 import Contact from './pages/Contact.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Seo from './components/Seo.jsx';
+import MaxDecor from './components/MaxDecor.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -48,6 +49,7 @@ export default function App() {
       <Footer />
       <FloatingActions />
       <ResumeSheet />
+      <MaxDecor />
     </div>
   );
 }

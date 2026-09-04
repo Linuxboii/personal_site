@@ -1,0 +1,488 @@
+/* =========================================================================
+   MAXIMALIST MODE - "Broadsheet"
+   -------------------------------------------------------------------------
+   Everything here hangs off html[data-mode="max"], so the minimalist site is
+   untouched when the attribute is absent or "min".
+
+   The direction is editorial poster, not sticker sheet. Maximalism here comes
+   from four levers, in this order:
+
+     1. Scale contrast    a display headline against 10px mono, nothing between
+     2. Colour blocking   whole panels filled solid, text inverted inside them
+     3. Structure         thick rules, column lines, an inverted masthead
+     4. Density           a wider measure and a fuller page
+
+   Deliberately absent: offset drop shadows, rotations, multi-hue palettes,
+   layered text shadows. One accent runs the whole page in both themes.
+
+   Most rules re-target the Tailwind classes the components already carry, so
+   maximalism reaches every page at once. Three semantic hooks (.mx-card,
+   .mx-tile, .mx-cell) mark the panels that take a solid fill; they are inert
+   in minimalist mode.
+   ========================================================================= */
+
+html[data-mode='max'] {
+  /* Solid block: the inverse of the page, used for masthead, footer, panels. */
+  --mx-block: #141414;
+  --mx-block-fg: #f2efe6;
+
+  /* The one accent. Two values: a bright fill and a darker text-safe tint,
+     because the fill only ever carries dark text or display type. */
+  --mx-accent-fill: #f0502a;
+  --mx-accent-fg: #141414;
+  /* Accent tuned to sit on --mx-block, which is the inverse of the page.
+     The page-level --c-accent would fail contrast there. */
+  --mx-accent-on-block: #f0502a;
+
+  --mx-rule: #141414;
+  --mx-grain-opacity: 0.14;
+
+  --c-canvas: 242 239 230;
+  --c-ink: 20 20 20;
+  --c-muted: 92 88 78;
+  --c-line: 20 20 20;
+  --c-accent: 195 49 26;
+  --c-accent-soft: 246 226 216;
+}
+
+html[data-mode='max'].dark {
+  --mx-block: #ede9df;
+  --mx-block-fg: #0e0e0d;
+
+  --mx-accent-fill: #ff5a3c;
+  --mx-accent-fg: #0e0e0d;
+  --mx-accent-on-block: #c3311a;
+
+  --mx-rule: #ede9df;
+  --mx-grain-opacity: 0.07;
+
+  --c-canvas: 14 14 13;
+  --c-ink: 237 233 223;
+  --c-muted: 154 148 136;
+  --c-line: 237 233 223;
+  --c-accent: 255 122 92;
+  --c-accent-soft: 47 28 22;
+}
+
+/* Flat ground. The texture is paper grain, not gradient wash. */
+html[data-mode='max'] body {
+  background-image: none;
+}
+
+html[data-mode='max'] ::selection {
+  background: var(--mx-accent-fill);
+  color: var(--mx-accent-fg);
+}
+
+/* A wider measure and a tighter vertical rhythm: the page fills its sheet
+   instead of sitting in an airy column. Density is the fourth lever. */
+html[data-mode='max'] .shell {
+  max-width: 96rem;
+}
+
+html[data-mode='max'] .py-16 { padding-top: 3rem; padding-bottom: 3rem; }
+html[data-mode='max'] .py-20 { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+html[data-mode='max'] .py-14 { padding-top: 2.75rem; padding-bottom: 2.75rem; }
+
+@media (min-width: 640px) {
+  html[data-mode='max'] .sm\:py-24 { padding-top: 4rem; padding-bottom: 4rem; }
+  html[data-mode='max'] .sm\:py-28 { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+}
+
+/* --- Type: the primary maximalist lever --------------------------------- */
+
+html[data-mode='max'] .font-display {
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+html[data-mode='max'] h1.font-display {
+  font-size: clamp(3.25rem, 11vw, 10rem);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* The hero's second line is muted in minimalist mode. Here it carries the
+   accent, which is the only place the accent appears at that scale. */
+html[data-mode='max'] h1.font-display span {
+  color: rgb(var(--c-accent));
+}
+
+html[data-mode='max'] h2.font-display {
+  font-size: clamp(2rem, 4.4vw, 3.75rem);
+  line-height: 0.94;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+/* Project tiles carry an h2 for document outline reasons, but they are cards,
+   not section headings. Keep them off the section-heading scale. */
+html[data-mode='max'] article h2.font-display {
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+html[data-mode='max'] h3.font-display {
+  font-size: 1.75rem;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+/* Display-weight paragraphs are the card kickers and skill names. They read
+   as the accent voice, at text size, with no container of their own. */
+html[data-mode='max'] p.font-display {
+  color: rgb(var(--c-accent));
+  letter-spacing: -0.02em;
+}
+
+/* The small end of the scale gets smaller and wider, so the jump is violent. */
+html[data-mode='max'] .font-mono {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+}
+
+html[data-mode='max'] .eyebrow {
+  display: inline-block;
+  border-bottom: 4px solid var(--mx-accent-fill);
+  padding-bottom: 0.3rem;
+  color: rgb(var(--c-ink));
+  font-weight: 600;
+  letter-spacing: 0.28em;
+}
+
+/* --- Structure ----------------------------------------------------------- */
+
+/* Section boundaries become masthead rules: one heavy, one accent hairline.
+   The sticky header is excluded: it carries the same classes, and giving it
+   position:relative would drop it out of the sticky flow. */
+html[data-mode='max'] .border-b.border-line:not(.sticky) {
+  position: relative;
+  border-bottom-width: 6px;
+}
+html[data-mode='max'] .border-b.border-line:not(.sticky)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -11px;
+  height: 2px;
+  background: var(--mx-accent-fill);
+}
+
+html[data-mode='max'] .border-t.border-line {
+  border-top-width: 6px;
+}
+
+html[data-mode='max'] header.grid.gap-10 {
+  border-bottom-width: 6px;
+}
+
+/* Definition lists read as a printed data column. */
+html[data-mode='max'] dt.font-mono {
+  color: rgb(var(--c-accent));
+  border-top: 2px solid rgb(var(--c-ink));
+  padding-top: 0.4rem;
+}
+html[data-mode='max'] dd {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* --- Panels: colour blocking -------------------------------------------- */
+
+html[data-mode='max'] .rounded-xl,
+html[data-mode='max'] article.rounded-xl {
+  border-radius: 0;
+  border-width: 2px;
+  border-color: rgb(var(--c-ink));
+  box-shadow: none;
+}
+
+html[data-mode='max'] .gap-px {
+  gap: 2px;
+}
+
+/* Solid blocks. Every third card, every fourth tile, alternating cells. */
+html[data-mode='max'] .mx-card:nth-child(3n + 1),
+html[data-mode='max'] .mx-tile:nth-child(4n + 1) > article,
+html[data-mode='max'] .mx-cell:nth-child(3n + 2) {
+  background-color: var(--mx-block);
+  color: var(--mx-block-fg);
+  border-color: var(--mx-block);
+}
+
+html[data-mode='max'] .mx-card:nth-child(3n + 3),
+html[data-mode='max'] .mx-tile:nth-child(4n + 3) > article,
+html[data-mode='max'] .mx-cell:nth-child(3n + 3) {
+  background-color: var(--mx-accent-fill);
+  color: var(--mx-accent-fg);
+  border-color: var(--mx-accent-fg);
+}
+
+/* Inside a filled panel every colour utility defers to the panel. */
+html[data-mode='max'] .mx-card:nth-child(3n + 1) :where(h2, h3, p, span, li, a, dt, dd, svg),
+html[data-mode='max'] .mx-card:nth-child(3n + 3) :where(h2, h3, p, span, li, a, dt, dd, svg),
+html[data-mode='max'] .mx-tile:nth-child(4n + 1) > article :where(h2, h3, p, span, li, a, dt, dd, svg),
+html[data-mode='max'] .mx-tile:nth-child(4n + 3) > article :where(h2, h3, p, span, li, a, dt, dd, svg),
+html[data-mode='max'] .mx-cell:nth-child(3n + 2) :where(h2, h3, p, span, li, a, dt, dd, svg),
+html[data-mode='max'] .mx-cell:nth-child(3n + 3) :where(h2, h3, p, span, li, a, dt, dd, svg) {
+  color: inherit;
+}
+
+/* Bullets and rules inside filled panels follow the same inversion. */
+html[data-mode='max'] .mx-card:nth-child(3n + 1) .bg-accent,
+html[data-mode='max'] .mx-card:nth-child(3n + 3) .bg-accent,
+html[data-mode='max'] .mx-cell:nth-child(3n + 2) .bg-accent,
+html[data-mode='max'] .mx-cell:nth-child(3n + 3) .bg-accent {
+  background-color: currentColor;
+}
+
+/* Chips and the tile link button invert with their panel. */
+html[data-mode='max'] .mx-card:nth-child(3n + 1) .chip,
+html[data-mode='max'] .mx-card:nth-child(3n + 3) .chip,
+html[data-mode='max'] .mx-tile:nth-child(4n + 1) .chip,
+html[data-mode='max'] .mx-tile:nth-child(4n + 3) .chip,
+html[data-mode='max'] .mx-tile:nth-child(4n + 1) a.rounded-full.border,
+html[data-mode='max'] .mx-tile:nth-child(4n + 3) a.rounded-full.border {
+  border-color: currentColor;
+  background: transparent;
+  color: inherit;
+}
+
+/* Skills and services grids draw their gutters from the cells themselves.
+   Outlines cost no layout, so they meet inside the 2px gap. Filling the
+   wrapper instead would leave a solid slab showing through while the cells
+   are still staggering in. */
+html[data-mode='max'] .bg-line {
+  background-color: rgb(var(--c-canvas));
+}
+
+html[data-mode='max'] .mx-cell {
+  background-image: none;
+  outline: 1px solid rgb(var(--c-ink));
+}
+
+/* --- Chips and controls -------------------------------------------------- */
+
+html[data-mode='max'] .chip {
+  border-radius: 0;
+  border: 1.5px solid rgb(var(--c-ink));
+  background: transparent;
+  color: rgb(var(--c-ink));
+  font-weight: 600;
+  box-shadow: none;
+}
+/* One filled chip per run, so the row has a beat instead of a uniform outline. */
+html[data-mode='max'] .chip:nth-child(4n + 1) {
+  background: var(--mx-accent-fill);
+  border-color: var(--mx-accent-fill);
+  color: var(--mx-accent-fg);
+}
+
+html[data-mode='max'] a.rounded-full.border,
+html[data-mode='max'] div.rounded-full.border,
+html[data-mode='max'] button.rounded-full.border,
+html[data-mode='max'] ul.rounded-full.border {
+  border-radius: 0;
+  border-width: 2px;
+  border-color: rgb(var(--c-ink));
+  box-shadow: none;
+}
+
+/* Tool pills: every fourth is filled, turning the list into a colour rhythm. */
+html[data-mode='max'] .flex-wrap > div.rounded-full.border:nth-child(4n + 2) {
+  background: var(--mx-accent-fill);
+  border-color: var(--mx-accent-fill);
+  color: var(--mx-accent-fg);
+}
+
+html[data-mode='max'] .rounded-full.bg-ink:not(.pointer-events-none) {
+  border-radius: 0;
+  border: 2px solid var(--mx-accent-fill);
+  background-color: var(--mx-accent-fill);
+  color: var(--mx-accent-fg);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: none;
+}
+html[data-mode='max'] .rounded-full.bg-ink:not(.pointer-events-none):hover {
+  background-color: transparent;
+  color: rgb(var(--c-ink));
+  border-color: rgb(var(--c-ink));
+}
+
+html[data-mode='max'] .rounded-lg {
+  border-radius: 0;
+  border-width: 2px;
+  border-color: rgb(var(--c-ink));
+  box-shadow: none;
+}
+
+html[data-mode='max'] span.rounded-full.bg-accent {
+  border-radius: 0;
+}
+
+html[data-mode='max'] a.text-muted:hover {
+  color: rgb(var(--c-accent));
+}
+
+/* --- Masthead: the page's strongest structural move ---------------------- */
+
+html[data-mode='max'] header.sticky {
+  background-color: var(--mx-block);
+  color: var(--mx-block-fg);
+  border-bottom: none;
+  background-image: none;
+}
+
+html[data-mode='max'] header.sticky :where(a, span, button, li) {
+  color: var(--mx-block-fg);
+}
+
+/* The logo mark only. The mobile menu button shares .rounded-md but should
+   stay a plain icon on the masthead. */
+html[data-mode='max'] header.sticky .rounded-md.bg-ink {
+  border-radius: 0;
+  background: var(--mx-accent-fill);
+  color: var(--mx-accent-fg);
+  box-shadow: none;
+}
+
+html[data-mode='max'] header.sticky ul.rounded-full.border {
+  border-color: var(--mx-block-fg);
+  background: transparent;
+}
+
+html[data-mode='max'] header.sticky button.rounded-full.border {
+  border-color: var(--mx-block-fg);
+}
+
+/* The sliding nav cursor becomes the accent, and its label flips to read. */
+html[data-mode='max'] li.pointer-events-none.rounded-full {
+  border-radius: 0;
+  background: var(--mx-accent-fill);
+}
+html[data-mode='max'] header.sticky li.group:hover a {
+  color: var(--mx-accent-fg);
+}
+
+/* --- Footer: the closing block ------------------------------------------ */
+
+html[data-mode='max'] footer {
+  background-color: var(--mx-block);
+  color: var(--mx-block-fg);
+  background-image: none;
+  border-top: none;
+}
+
+html[data-mode='max'] footer :where(p, a, li, span) {
+  color: var(--mx-block-fg);
+}
+
+html[data-mode='max'] footer .eyebrow {
+  color: var(--mx-block-fg);
+}
+
+html[data-mode='max'] footer p.font-display,
+html[data-mode='max'] footer a:hover {
+  color: var(--mx-accent-on-block);
+}
+
+html[data-mode='max'] footer .border-t.border-line {
+  border-top-color: var(--mx-block-fg);
+  border-top-width: 2px;
+}
+
+/* --- Ticker: the page's one marquee -------------------------------------- */
+
+.mx-ticker {
+  overflow: hidden;
+  background: var(--mx-accent-fill);
+  color: var(--mx-accent-fg);
+  border-top: 2px solid var(--mx-accent-fg);
+  border-bottom: 2px solid var(--mx-accent-fg);
+}
+
+.mx-ticker__track {
+  display: flex;
+  width: max-content;
+  animation: mx-scroll 46s linear infinite;
+}
+
+.mx-ticker__run {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.mx-ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0.35rem 1.1rem 0.35rem 0;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.mx-ticker__sep {
+  font-weight: 400;
+  opacity: 0.55;
+}
+
+@keyframes mx-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* --- Paper grain --------------------------------------------------------- */
+
+.mx-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  opacity: var(--mx-grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+html[data-mode='max'].dark .mx-grain {
+  mix-blend-mode: screen;
+}
+
+/* --- Keep the resume sheet and print output sane ------------------------- */
+
+html[data-mode='max'] .resume-sheet,
+html[data-mode='max'] .resume-sheet * {
+  box-shadow: none !important;
+  transform: none !important;
+  text-shadow: none !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  color: #000 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+@media print {
+  .mx-ticker,
+  .mx-grain {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mx-ticker__track {
+    animation: none !important;
+    transform: none !important;
+  }
+}

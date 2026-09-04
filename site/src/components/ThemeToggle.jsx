@@ -5,6 +5,9 @@ const STORAGE_KEY = 'sk-theme';
 
 function getInitial() {
   if (typeof window === 'undefined') return 'light';
+  // ?theme=dark wins once, so a specific look can be linked to directly.
+  const param = new URLSearchParams(window.location.search).get('theme');
+  if (param === 'dark' || param === 'light') return param;
   return localStorage.getItem(STORAGE_KEY) || 'light';
 }
 

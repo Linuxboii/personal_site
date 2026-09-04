@@ -12,7 +12,7 @@ function SkillGrid({ items }) {
   return (
     <StaggerGroup className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 xl:grid-cols-3">
       {items.map((s) => (
-        <StaggerItem key={s.name} className="bg-canvas p-6">
+        <StaggerItem key={s.name} className="mx-cell bg-canvas p-6">
           <p className="font-display text-lg font-semibold leading-snug">{s.name}</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">{s.detail}</p>
         </StaggerItem>

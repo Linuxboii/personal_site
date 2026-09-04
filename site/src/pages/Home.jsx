@@ -62,7 +62,7 @@ export default function Home() {
             {featured.map((p) => (
               <StaggerItem
                 key={p.title}
-                className="flex flex-col rounded-xl border border-line p-7 transition hover:border-ink/40"
+                className="mx-card flex flex-col rounded-xl border border-line p-7 transition hover:border-ink/40"
               >
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-display text-2xl font-semibold">{p.title}</h3>
@@ -108,7 +108,7 @@ export default function Home() {
           </div>
           <StaggerGroup className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
             {services.map((s) => (
-              <StaggerItem key={s.title} className="bg-canvas p-7">
+              <StaggerItem key={s.title} className="mx-cell bg-canvas p-7">
                 <h3 className="font-display text-xl font-semibold">{s.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">{s.body}</p>
               </StaggerItem>

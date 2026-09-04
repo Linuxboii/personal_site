@@ -90,6 +90,25 @@
         ]
       }
     </script>
+
+    <!-- Apply the stored theme and design mode before first paint. Both are
+         plain attributes on <html>; the CSS keys off them. -->
+    <script>
+      (function () {
+        try {
+          var d = document.documentElement;
+          var qs = new URLSearchParams(location.search);
+          var t = qs.get('theme');
+          if (t !== 'light' && t !== 'dark') t = localStorage.getItem('sk-theme');
+          if (t === 'dark') d.classList.add('dark');
+          var q = qs.get('mode');
+          var m = q === 'max' || q === 'min' ? q : localStorage.getItem('sk-mode');
+          d.setAttribute('data-mode', m === 'max' ? 'max' : 'min');
+        } catch (e) {
+          document.documentElement.setAttribute('data-mode', 'min');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
