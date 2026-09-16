@@ -144,6 +144,29 @@ export const projects = [
     link: 'https://gatecheck.avlokai.com',
   },
   {
+    title: 'Speak',
+    short: 'Spin a wheel, get a topic you have never had, talk for exactly sixty seconds.',
+    role: 'Product',
+    year: '2026',
+    lead: true,
+    kicker: 'One spin. One topic. Sixty seconds.',
+    summary:
+      'A speaking-practice app that hands you a topic you have not spoken on before and holds you to exactly one minute. The wheel draws only from unused topics, and a selection is written to history the moment it lands, so a refresh cannot hand back an easier round. The timer counts down from an absolute deadline rather than a tick loop, so a backgrounded tab cannot buy extra seconds.',
+    detail: [
+      'Wheel samples only unused topics; history persists per device and resets only on request',
+      'Exactly 60 seconds, derived from a monotonic deadline — tab throttling cannot stretch it',
+      'Zero dependencies: static modules served by Nginx behind a dedicated Cloudflare tunnel',
+      'Reduced-motion respected, focus states visible, topic and timer changes announced to screen readers',
+    ],
+    stats: [
+      { value: '3,717', label: 'Topics, none repeated' },
+      { value: '60s', label: 'Exact speaking window' },
+      { value: '0', label: 'Runtime dependencies' },
+    ],
+    stack: ['Vanilla JS', 'Nginx', 'Cloudflare Tunnel', 'Node test runner'],
+    link: 'https://speak.avlokai.com',
+  },
+  {
     title: 'AvlokAI',
     short: 'The AI automation agency behind the work — autonomous workflows and agents for SMBs.',
     role: 'Founder',

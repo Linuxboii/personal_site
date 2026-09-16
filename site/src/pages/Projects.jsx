@@ -5,7 +5,7 @@ import { StaggerGroup, StaggerItem } from '../components/Reveal.jsx';
 
 const meta = [
   { label: 'Projects', value: `${projects.length} listed` },
-  { label: 'Products', value: 'OncoLens · Mula Map · Consensus Engine · Gatecheck' },
+  { label: 'Products', value: 'OncoLens · Mula Map · Consensus Engine · Gatecheck · Speak' },
   { label: 'Focus', value: 'AI automation · Security' },
 ];
 
