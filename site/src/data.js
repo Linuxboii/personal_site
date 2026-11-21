@@ -166,6 +166,128 @@ export const projects = [
     stack: ['Vanilla JS', 'Nginx', 'Cloudflare Tunnel', 'Node test runner'],
     link: 'https://speak.avlokai.com',
   },
+  /* `resume: false` keeps an entry on the site but out of the one-page PDF. */
+  {
+    title: 'Mantrana',
+    short: 'Explain your business once. Twelve AI advisors argue it out and hand back one ranked growth plan.',
+    role: 'Product',
+    year: '2026',
+    resume: false,
+    kicker: 'A boardroom you can afford.',
+    summary:
+      'Explain your business once and a board of twelve AI advisors — each with a different career, temperament and blind spot — debates it, then hands back a single ranked growth plan. Clarifying questions come first, so the debate argues about your business rather than a guess at it. Paid once through Razorpay, with per-run cost accounting on the admin side.',
+    detail: [
+      'Twelve advisor personas with distinct careers and biases, run as one structured debate',
+      'Clarify step before the boardroom, so every advisor works from the same facts',
+      'One-time payment via Razorpay with webhook verification; admins defined by config, never by users',
+      'Downloadable report of the full debate and the final plan',
+    ],
+    stack: ['Node.js', 'Express', 'SQLite', 'DeepSeek', 'Razorpay'],
+    link: 'https://mantrana.avlokai.com',
+  },
+  {
+    title: 'Baaki',
+    short: 'Recovers what MSMEs are owed: statutory due dates, interest at 3× repo, and a polite-to-firm follow-up ladder.',
+    role: 'Product',
+    year: '2026',
+    resume: false,
+    kicker: 'Get paid on time, by law.',
+    summary:
+      'Payment recovery for small Indian manufacturers. Baaki works out when each invoice became legally due under the MSMED Act, computes interest at three times the RBI repo rate with monthly rests, and runs a deterministic escalation ladder from a courtesy WhatsApp to a prepared ODR filing. The model drafts the messages; it never decides the tier.',
+    detail: [
+      'Statutory clock: agreed terms capped at 45 days, 15 without a written agreement, deemed acceptance after 30',
+      'Interest at 3× the RBI repo rate in force, compounded monthly from the day after the due date',
+      'Seven tiers from WhatsApp heads-up to formal notice and ODR pack — rules pick the tier, never the LLM',
+      'Buyer freeze and opt-out honoured within one cycle',
+    ],
+    stack: ['FastAPI', 'PostgreSQL', 'Rules engine', 'WhatsApp'],
+    link: 'https://baaki.avlokai.com',
+  },
+  {
+    title: 'Lekha Khata',
+    short: 'Shopkeepers speak their sales in Telugu; the ledger writes itself, and asks one question when unsure.',
+    role: 'Product',
+    year: '2026',
+    resume: false,
+    kicker: 'The ledger that listens.',
+    summary:
+      'A bookkeeping assistant for small shops that takes voice notes, WhatsApp messages and bill photos in Telugu, splits them into individual transactions and posts them to a ledger. Anything ambiguous or out of character goes to a review queue with one targeted question, instead of being posted on a guess.',
+    detail: [
+      'Each message is split into clauses; each clause becomes exactly one transaction',
+      'Customer and item aliases resolve spoken names, nicknames and scripts to one record',
+      'Refuses to post below a confidence floor — the review queue asks one question, not a form',
+    ],
+    stack: ['FastAPI', 'PostgreSQL', 'Speech + LLM extraction', 'Telugu'],
+    link: 'https://lekhakhata.avlokai.com',
+  },
+  {
+    title: 'GeMShield',
+    short: 'Bid compliance for government procurement: every clause scored, every status pointing back at its page.',
+    role: 'Hackathon build',
+    year: '2026',
+    resume: false,
+    kicker: 'Evidence, not verdicts.',
+    summary:
+      'Built for Smart India Hackathon problem SIH26100. GeMShield extracts eligibility clauses from a GeM bid, matches each bidder’s document packet against them, and gives the evaluation committee a clause-by-clause scorecard in which every status links back to the exact page region it came from. It never accepts or rejects a bid; a human records the decision.',
+    detail: [
+      'Layout-aware OCR, document classification and field extraction across bidder packets',
+      'GSTIN, PAN and Udyam validation, tamper signals and duplicate detection',
+      'Hybrid deterministic plus grounded-semantic matching with a confidence floor',
+      'Per-member review with mandatory override reasons and a locked final decision',
+    ],
+    stack: ['FastAPI', 'React', 'OCR', 'PostgreSQL', 'Docker'],
+    link: 'https://gemshield.avlokai.com',
+  },
+  {
+    title: 'MetroMind',
+    short: 'Cited answers over a mixed English–Malayalam document corpus for Kochi Metro.',
+    role: 'Hackathon build',
+    year: '2025',
+    resume: false,
+    kicker: 'Answers you can click through.',
+    summary:
+      'Document intelligence for Kochi Metro Rail (SIH 2025, PS79). It ingests a mixed English and Malayalam corpus and answers plain-language questions with clickable citations to the exact source passage. Retrieval runs on local multilingual embeddings, so search works with no API key; answer generation is pluggable between an extractive mode and a model.',
+    detail: [
+      'Local multilingual embeddings in pgvector — semantic search at zero API cost',
+      'Every answer cites the passage it came from, with a link to the page',
+      'Async ingestion worker; fully namespaced compose stack for a shared host',
+    ],
+    stack: ['FastAPI', 'pgvector', 'sentence-transformers', 'React', 'Docker'],
+    link: null,
+  },
+  {
+    title: 'Swaram',
+    short: 'A pocket voice studio: tuner, pitch trainer, chords, scales, a looper and a recorder, offline.',
+    role: 'Product',
+    year: '2026',
+    resume: false,
+    kicker: 'Practise in tune.',
+    summary:
+      'An installable, offline-first voice and guitar practice studio. A real-time pitch tracker drives a tuner and a pitch trainer, alongside chord and scale references, a metronome, a looper and a recorder — all running in the browser with no account.',
+    detail: [
+      'Real-time pitch detection on the microphone, no server round trip',
+      'Looper and recorder on a shared audio bus',
+      'Installable PWA with a service worker; works offline after the first visit',
+    ],
+    stack: ['Web Audio', 'Vanilla JS', 'PWA', 'IndexedDB'],
+    link: 'https://swaram.avlokai.com',
+  },
+  {
+    title: 'Web Honeypot',
+    short: 'Fake WordPress, fake .env, real bans: lures scanners in and drops them at the firewall.',
+    role: 'Security build',
+    year: '2026',
+    resume: false,
+    summary:
+      'A honeypot on the server catch-all that serves convincing bait — a fake WordPress login, a phpunit RCE endpoint, honey-token .git and .env files, phpMyAdmin — to traffic that arrives looking for them. Every hit is logged with its payload; repeat offenders are dropped at the firewall for a day, with Cloudflare edges and private ranges never banned.',
+    detail: [
+      'Captures every interaction, payload included, to PostgreSQL',
+      'Three hits in two minutes from one IP earns a 24-hour iptables drop',
+      'Cloudflare edge ranges are allow-listed so a ban can never take the site down',
+    ],
+    stack: ['Python', 'PostgreSQL', 'iptables', 'Nginx'],
+    link: null,
+  },
   {
     title: 'AvlokAI',
     short: 'The AI automation agency behind the work — autonomous workflows and agents for SMBs.',
@@ -232,6 +354,62 @@ export const projects = [
       'Hands-on digital forensics investigations during training at ISOEH, Kolkata. Covered malware analysis, mobile forensics, and dark web investigations. Reported findings with full evidence chains.',
     stack: ['Autopsy', 'Volatility', 'Wireshark', 'Linux'],
     link: null,
+  },
+];
+
+/* Useless on purpose: things built only to see if they could be. Same tile
+   schema as `projects`; `sanskrit` and `meaning` replace the kicker. They are
+   web-only and never appear in the PDF resume. */
+export const playground = [
+  {
+    title: 'Yantra',
+    sanskrit: 'यन्त्र',
+    meaning: 'machine',
+    role: 'Playground',
+    year: '2026',
+    short: 'A 16-bit computer that does not exist, with its own instruction set, assembler and 64×64 screen. Snake in 236 words.',
+    stack: ['Emulator', 'Assembler', 'Canvas'],
+    link: 'https://yantra.avlokai.com',
+  },
+  {
+    title: 'Chhaya',
+    sanskrit: 'छाया',
+    meaning: 'shadow',
+    role: 'Playground',
+    year: '2026',
+    short: 'A ray marcher with soft shadows and ambient occlusion that draws a Menger sponge, a gyroid and a melting torus using nothing but text characters.',
+    stack: ['Ray marching', 'SDFs', 'Plain text'],
+    link: 'https://chhaya.avlokai.com',
+  },
+  {
+    title: 'Nada',
+    sanskrit: 'नाद',
+    meaning: 'primordial sound',
+    role: 'Playground',
+    year: '2026',
+    short: 'Conway’s Game of Life played as a raga: living cells are notes of Bhupali or Yaman, each bar the colony evolves, a synthesized tanpura hums underneath.',
+    stack: ['Web Audio', 'Cellular automata', 'Look-ahead scheduler'],
+    link: 'https://nada.avlokai.com',
+  },
+  {
+    title: 'Jala',
+    sanskrit: 'जल',
+    meaning: 'water',
+    role: 'Playground',
+    year: '2026',
+    short: 'Incompressible Navier–Stokes on the GPU every frame. Drag ink through water — it absorbs like real ink on paper in light mode and glows in dark.',
+    stack: ['WebGL2', 'GLSL', 'Fluid dynamics'],
+    link: 'https://jala.avlokai.com',
+  },
+  {
+    title: 'Svayam',
+    sanskrit: 'स्वयम्',
+    meaning: 'oneself',
+    role: 'Playground',
+    year: '2026',
+    short: 'Finds sentences that correctly count their own letters. Type any opening; a Web Worker tries nearly a million candidates a second until it is true.',
+    stack: ['Web Worker', 'Search', 'Autograms'],
+    link: 'https://svayam.avlokai.com',
   },
 ];
 

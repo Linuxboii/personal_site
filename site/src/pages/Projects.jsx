@@ -1,11 +1,12 @@
 import { ArrowUpRight } from 'lucide-react';
-import { PageShell } from '../components/Section.jsx';
-import { projects } from '../data.js';
+import { PageShell, SectionTitle } from '../components/Section.jsx';
+import { projects, playground } from '../data.js';
 import { StaggerGroup, StaggerItem } from '../components/Reveal.jsx';
 
 const meta = [
   { label: 'Projects', value: `${projects.length} listed` },
-  { label: 'Products', value: 'OncoLens · Mula Map · Consensus Engine · Gatecheck · Speak' },
+  { label: 'Products', value: 'OncoLens · Mula Map · Consensus Engine · Gatecheck · Speak · Mantrana · Baaki · Lekha Khata' },
+  { label: 'Playground', value: `${playground.length} useless things, built anyway` },
   { label: 'Focus', value: 'AI automation · Security' },
 ];
 
@@ -28,11 +29,16 @@ function Tile({ p }) {
 
         <h2 className="mt-4 line-clamp-2 font-display text-2xl font-semibold leading-tight">{p.title}</h2>
 
-        {p.kicker && (
+        {p.sanskrit ? (
+          <p className="mt-2 line-clamp-2 font-display text-[15px] leading-snug text-accent">
+            <span lang="sa">{p.sanskrit}</span>
+            <span className="text-muted"> · {p.meaning}</span>
+          </p>
+        ) : p.kicker && (
           <p className="mt-2 line-clamp-2 font-display text-[15px] leading-snug text-accent">{p.kicker}</p>
         )}
 
-        <p className={`mt-3 text-sm leading-relaxed text-ink/80 ${p.kicker ? 'line-clamp-3' : 'line-clamp-4'}`}>
+        <p className={`mt-3 text-sm leading-relaxed text-ink/80 ${p.kicker || p.sanskrit ? 'line-clamp-3' : 'line-clamp-4'}`}>
           {p.short || p.summary}
         </p>
 
@@ -76,6 +82,24 @@ export default function Projects() {
           <Tile key={p.title} p={p} />
         ))}
       </StaggerGroup>
+
+      {/* Playground: no client, no use case, just the craft. Same tiles, so
+          light, dark and maximalist modes style them with no extra CSS. */}
+      <section id="playground" aria-labelledby="playground-title" className="mt-24 scroll-mt-24">
+        <SectionTitle kicker="Useless, on purpose">
+          <span id="playground-title">Playground</span>
+        </SectionTitle>
+        <p className="-mt-2 mb-10 max-w-prose text-muted">
+          Five unrelated things with no real-world use, each named in Sanskrit, each built only to see whether it could be.
+          A computer that never existed, a 3D renderer made of letters, a raga played by cellular automata, ink in water on the GPU,
+          and sentences that count themselves.
+        </p>
+        <StaggerGroup className="flex flex-wrap justify-center gap-6" stagger={0.06}>
+          {playground.map((p) => (
+            <Tile key={p.title} p={p} />
+          ))}
+        </StaggerGroup>
+      </section>
     </PageShell>
   );
 }

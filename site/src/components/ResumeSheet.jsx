@@ -47,7 +47,7 @@ export default function ResumeSheet() {
 
       <Section title="Selected Projects">
         <ul className="space-y-3">
-          {projects.map((p) => (
+          {projects.filter((p) => p.resume !== false).map((p) => (
             <li key={p.title}>
               <p className="font-semibold">{p.title} <span className="font-normal italic">- {p.role}</span></p>
               <p>{p.summary}</p>

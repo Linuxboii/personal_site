@@ -41,7 +41,7 @@ export const routes = [
     path: '/projects',
     title: 'Projects — Selected Work | Sushanth Kasturi',
     description:
-      'Selected work: OncoLens biomedical retrieval, Mula Map, Consensus Engine, Gatecheck, Speak, AI automation builds for SMB clients, and cybersecurity labs and tooling.',
+      'Selected work: OncoLens, Mula Map, Consensus Engine, Gatecheck, Speak, Mantrana, Baaki and Lekha Khata, AI automation builds, security tooling, and a playground of deliberately useless experiments.',
     heading: 'Selected work',
     priority: '0.9',
   },
