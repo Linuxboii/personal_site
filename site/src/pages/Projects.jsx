@@ -14,12 +14,12 @@ const meta = [
    tile grows with the project, so the copy is clamped to the space it has:
    `short` in data.js is the line written for this width, and `summary` is
    only the fallback. Depth lives behind the link, not in the tile. */
-function Tile({ p }) {
+function Tile({ p, i = 0 }) {
   const shown = p.stack.slice(0, 3);
   const rest = p.stack.length - shown.length;
 
   return (
-    <StaggerItem className="mx-tile w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+    <StaggerItem index={i} className="mx-tile w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
       <article className="flex aspect-square flex-col overflow-hidden rounded-xl border border-line p-6 transition hover:border-ink/40 sm:p-7">
         <div className="flex items-baseline justify-between gap-3">
           <p className="eyebrow">{p.role}</p>
@@ -77,8 +77,8 @@ export default function Projects() {
       {/* flex-wrap rather than grid: a last row that does not fill centers
           itself instead of hanging off the left edge. */}
       <StaggerGroup className="flex flex-wrap justify-center gap-6" stagger={0.06}>
-        {projects.map((p) => (
-          <Tile key={p.title} p={p} />
+        {projects.map((p, i) => (
+          <Tile key={p.title} p={p} i={i} />
         ))}
       </StaggerGroup>
     </PageShell>
