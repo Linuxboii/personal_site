@@ -5,6 +5,7 @@ import { navLinks } from '../data.js';
 import NavHeader from './NavHeader.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
 import ModeToggle from './ModeToggle.jsx';
+import FunToggle from './FunToggle.jsx';
 import { MaxTicker } from './MaxDecor.jsx';
 
 export default function NavBar() {
@@ -25,6 +26,7 @@ export default function NavBar() {
         </div>
 
         <div className="flex items-center gap-2">
+          <FunToggle />
           <ModeToggle />
           <ThemeToggle />
           <button

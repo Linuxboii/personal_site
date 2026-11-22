@@ -51,7 +51,7 @@
             "image": "https://sushanth.avlokai.com/og-image.png",
             "jobTitle": "Founder, AvlokAI",
             "email": "mailto:sushanth@avlokai.com",
-            "telephone": "+91 8247686179",
+            "telephone": "+91 9346672015",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Hyderabad",
@@ -102,8 +102,8 @@
           if (t !== 'light' && t !== 'dark') t = localStorage.getItem('sk-theme');
           if (t === 'dark') d.classList.add('dark');
           var q = qs.get('mode');
-          var m = q === 'max' || q === 'min' ? q : localStorage.getItem('sk-mode');
-          d.setAttribute('data-mode', m === 'max' ? 'max' : 'min');
+          var m = q === 'max' || q === 'min' || q === 'fun' ? q : localStorage.getItem('sk-mode');
+          d.setAttribute('data-mode', m === 'max' || m === 'fun' ? m : 'min');
         } catch (e) {
           document.documentElement.setAttribute('data-mode', 'min');
         }

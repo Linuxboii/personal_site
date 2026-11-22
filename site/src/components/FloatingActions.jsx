@@ -21,7 +21,7 @@ async function downloadPdf() {
 
 export default function FloatingActions() {
   return (
-    <div className="no-print fixed bottom-5 right-5 z-50 flex gap-2">
+    <div className="floating-actions no-print fixed bottom-5 right-5 z-50 flex gap-2">
       <button
         onClick={() => window.print()}
         aria-label="Print resume"
