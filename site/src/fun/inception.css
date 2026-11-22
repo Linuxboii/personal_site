@@ -12,6 +12,9 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 html.inc-locked, html.inc-locked body { overflow: hidden; }
 html.inc-has-cursor .inc, html.inc-has-cursor .inc * { cursor: none !important; }
+/* The intro sits above the custom cursor, so it keeps the real one. */
+html.inc-has-cursor .inc-intro, html.inc-has-cursor .inc-intro * { cursor: auto !important; }
+html.inc-has-cursor .inc-intro button { cursor: pointer !important; }
 
 .inc-loading {
   position: fixed; inset: 0; display: grid; place-items: center; background: #05070b; color: #c9d3dc;
