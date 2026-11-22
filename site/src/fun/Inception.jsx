@@ -44,6 +44,9 @@ export default function Inception() {
   const { pathname } = useLocation();
   const [activeId, setActiveId] = useState('real');
   const [dir, setDir] = useState(1);
+  const [lite, setLite] = useState(() => {
+    try { return sessionStorage.getItem('inc-lite') === '1'; } catch { return false; }
+  });
   const prevIdx = useRef(0);
 
   useEffect(() => {
@@ -57,22 +60,50 @@ export default function Inception() {
 
   useEffect(() => () => sound.set(false), []);
 
-  // Smooth, weighty scrolling, and the "gravity" warp that follows its velocity.
+  // Adaptive quality: watch real frame times for a few seconds; if the
+  // device is struggling, drop the decorative layers and WebGL resolution.
+  useEffect(() => {
+    document.documentElement.classList.toggle('inc-lite', lite);
+    if (lite) {
+      window.dispatchEvent(new Event('inc-lite'));
+      return () => document.documentElement.classList.remove('inc-lite');
+    }
+    let raf;
+    let last = 0;
+    let samples = [];
+    let checks = 0;
+    const tick = (t) => {
+      if (last && !document.hidden) samples.push(t - last);
+      last = t;
+      if (samples.length >= 120) {
+        samples.sort((a, b) => a - b);
+        const median = samples[60];
+        checks += 1;
+        if (median > 21) {
+          try { sessionStorage.setItem('inc-lite', '1'); } catch { /* ignore */ }
+          setLite(true);
+          return;
+        }
+        samples = [];
+        if (checks >= 4) return;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    const start = setTimeout(() => { raf = requestAnimationFrame(tick); }, 2500);
+    return () => {
+      clearTimeout(start);
+      cancelAnimationFrame(raf);
+      document.documentElement.classList.remove('inc-lite');
+    };
+  }, [lite]);
+
+  // Smooth, weighty scrolling.
   useEffect(() => {
     if (reduced) return undefined;
-    const ln = new Lenis({ lerp: 0.08, smoothWheel: true, wheelMultiplier: 0.9 });
+    const ln = new Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 0.9 });
     lenis.current = ln;
-    let v = 0;
-    ln.on('scroll', (e) => {
-      v = Math.max(-40, Math.min(40, e.velocity || 0));
-      rootRef.current?.style.setProperty('--vel', v.toFixed(2));
-    });
     let id = requestAnimationFrame(function raf(t) {
       ln.raf(t);
-      if (Math.abs(v) > 0.01 && Math.abs(ln.velocity || 0) < 0.01) {
-        v *= 0.85;
-        rootRef.current?.style.setProperty('--vel', v.toFixed(2));
-      }
       id = requestAnimationFrame(raf);
     });
     return () => {
@@ -127,7 +158,7 @@ export default function Inception() {
 
   return (
     <DreamContext.Provider value={ctx}>
-      <div ref={rootRef} className={`inc inc--${active.id} ${reduced ? 'inc--still' : ''}`}>
+      <div ref={rootRef} className={`inc inc--${active.id} ${reduced ? 'inc--still' : ''} ${lite ? 'inc--lite' : ''}`}>
         <Intro />
         <a className="inc-skip" href="#inc-limbo" onClick={(e) => { e.preventDefault(); go('limbo'); }}>
           Skip to contact

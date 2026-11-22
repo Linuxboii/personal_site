@@ -45,7 +45,6 @@ export function Reality() {
 
   const copyOp = useT(reduced, p, [0, 0.1, 0.22], [1, 1, 0], 1);
   const copyY = useT(reduced, p, [0, 0.22], [0, -90], 0);
-  const copyBlur = useT(reduced, p, [0.08, 0.22], ['blur(0px)', 'blur(12px)'], 'blur(0px)');
   const b1 = useT(reduced, p, [0.26, 0.34, 0.5, 0.58], [0, 1, 1, 0], 0);
   const b1s = useT(reduced, p, [0.26, 0.58], [0.9, 1.08], 1);
   const b2 = useT(reduced, p, [0.64, 0.72, 0.9, 1], [0, 1, 1, 0], 0);
@@ -59,7 +58,7 @@ export function Reality() {
         <CityFold progress={reduced ? null : p} className="inc-real__gl" />
         <div className="inc-real__scrim" aria-hidden="true" />
 
-        <motion.div className="inc-real__copy" style={{ opacity: copyOp, y: copyY, filter: copyBlur }}>
+        <motion.div className="inc-real__copy" style={{ opacity: copyOp, y: copyY }}>
           <Label>{profile.tagline}</Label>
           <h1 className="inc-real__name">
             <span className="inc-real__line">{first}</span>
@@ -119,7 +118,7 @@ function Shard({ s, p }) {
       className={`inc-shard inc-shard--${s.kind}`}
       style={{
         left: `${s.x}%`, top: `${s.y}%`, width: s.size, height: s.size * s.ar,
-        y, rotate: r, clipPath: s.clip, '--d': s.depth, filter: s.depth < 0.45 ? `blur(${(0.45 - s.depth) * 6}px)` : undefined,
+        y, rotate: r, clipPath: s.clip, '--d': s.depth, opacity: 0.35 + s.depth * 0.6,
         zIndex: s.depth > 0.8 ? 3 : 0,
       }}
     />
@@ -127,7 +126,7 @@ function Shard({ s, p }) {
 }
 
 const KINDS = ['glass', 'glass', 'plaster', 'paper', 'dark'];
-export function Debris({ count = 46, seed = 3, kinds = KINDS }) {
+export function Debris({ count = 26, seed = 3, kinds = KINDS }) {
   const ref = useRef(null);
   const { reduced } = useDream();
   const { scrollYProgress: p } = useScroll({ target: ref, offset: ['start end', 'end start'] });

@@ -92,35 +92,31 @@ export function useSound() {
 }
 
 /* ------------------------------------------------------------------ GRAIN */
+/* One noise tile, painted once; CSS jumps it around in steps. That is a
+   compositor-only animation, unlike repainting a canvas every frame. */
+let grainUrl = null;
+function grainTile() {
+  if (grainUrl) return grainUrl;
+  const c = document.createElement('canvas');
+  c.width = c.height = 200;
+  const g = c.getContext('2d');
+  const img = g.createImageData(200, 200);
+  for (let i = 0; i < img.data.length; i += 4) {
+    const v = Math.random() * 255;
+    img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+    img.data[i + 3] = Math.random() * 60;
+  }
+  g.putImageData(img, 0, 0);
+  grainUrl = c.toDataURL('image/png');
+  return grainUrl;
+}
+
 export function Grain() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const c = ref.current;
-    const g = c.getContext('2d');
-    c.width = 480;
-    c.height = 270;
-    const img = g.createImageData(c.width, c.height);
-    let id;
-    let last = 0;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const draw = (t) => {
-      if (t - last > 70) {
-        last = t;
-        for (let i = 0; i < img.data.length; i += 4) {
-          const v = Math.random() * 255;
-          img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
-          img.data[i + 3] = 255;
-        }
-        g.putImageData(img, 0, 0);
-      }
-      if (!reduced) id = requestAnimationFrame(draw);
-    };
-    id = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(id);
-  }, []);
+  const [url, setUrl] = useState(null);
+  useEffect(() => setUrl(grainTile()), []);
   return (
     <div className="inc-film" aria-hidden="true">
-      <canvas ref={ref} className="inc-film__grain" />
+      <div className="inc-film__grain" style={url ? { backgroundImage: `url(${url})` } : undefined} />
       <div className="inc-film__vignette" />
       <div className="inc-film__bars"><span /><span /></div>
     </div>

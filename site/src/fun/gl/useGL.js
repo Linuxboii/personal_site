@@ -7,7 +7,7 @@ import { WebGLRenderer } from 'three';
    - hands `setup` a renderer; setup returns { frame(t, dt), resize(w,h), dispose() }
    If WebGL is unavailable the canvas simply stays empty and the CSS
    fallback behind it shows through. */
-export function useGL(setup, deps = []) {
+export function useGL(setup, deps = [], { maxDpr = 1.5, antialias = true } = {}) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -15,11 +15,12 @@ export function useGL(setup, deps = []) {
     if (!canvas) return undefined;
     let renderer;
     try {
-      renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer = new WebGLRenderer({ canvas, antialias, alpha: true, powerPreference: 'high-performance' });
     } catch {
       return undefined;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    const dpr = () => Math.min(window.devicePixelRatio || 1, document.documentElement.classList.contains('inc-lite') ? 1 : maxDpr);
+    renderer.setPixelRatio(dpr());
     const api = setup(renderer) || {};
 
     let w = 0;
@@ -37,6 +38,12 @@ export function useGL(setup, deps = []) {
     size();
     const ro = new ResizeObserver(size);
     ro.observe(canvas);
+    const onLite = () => {
+      renderer.setPixelRatio(dpr());
+      w = 0;
+      size();
+    };
+    window.addEventListener('inc-lite', onLite);
 
     let visible = false;
     let raf = 0;
@@ -58,6 +65,7 @@ export function useGL(setup, deps = []) {
     io.observe(canvas);
 
     return () => {
+      window.removeEventListener('inc-lite', onLite);
       io.disconnect();
       ro.disconnect();
       cancelAnimationFrame(raf);

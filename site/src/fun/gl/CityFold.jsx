@@ -249,7 +249,7 @@ export default function CityFold({ progress, className = '' }) {
         gMat.dispose();
       },
     };
-  }, []);
+  }, [], { maxDpr: 1.25 });
 
   return <canvas ref={ref} className={`inc-gl ${className}`} aria-hidden="true" />;
 }

@@ -9,6 +9,16 @@ import Hallway from './gl/Hallway.jsx';
 import TotemGL from './gl/TotemGL.jsx';
 import { useWake } from './cinema.jsx';
 
+/* Scroll-driven readouts write straight to the DOM, so a counter ticking
+   every frame never re-renders the section around it. */
+function Live({ value, format }) {
+  const ref = useRef(null);
+  useMotionValueEvent(value, 'change', (v) => {
+    if (ref.current) ref.current.textContent = format(v);
+  });
+  return <span ref={ref}>{format(value.get())}</span>;
+}
+
 function useMedia(q) {
   const [m, setM] = useState(() => typeof window !== 'undefined' && window.matchMedia(q).matches);
   useEffect(() => {
@@ -66,8 +76,6 @@ export function Hotel() {
   const tilt = useT(reduced, p, [0, 0.5, 1], [-4, 4, -2], 0);
   const wall = useT(reduced, p, [0, 1], [0, -160], 0);
   const grav = useT(reduced, p, [0, 1], [-30, 30], 0);
-  const [deg, setDeg] = useState(0);
-  useMotionValueEvent(p, 'change', (v) => setDeg(Math.round(-30 + v * 60)));
 
   return (
     <section id="inc-l2" ref={ref} className="inc-scene inc-l2" aria-label="Level 2, the hotel — skills">
@@ -77,7 +85,7 @@ export function Hotel() {
       <div className="inc-gravity" aria-hidden="true">
         <motion.span className="inc-gravity__needle" style={{ rotate: grav }} />
         <span className="inc-gravity__k">Gravity</span>
-        <span className="inc-gravity__v">{reduced ? 0 : deg}°</span>
+        <span className="inc-gravity__v">{reduced ? '0°' : <Live value={p} format={(v) => `${Math.round(-30 + v * 60)}°`} />}</span>
       </div>
       <motion.div className="inc-wrap" style={{ rotate: tilt }}>
         <LevelTag n="02" name="The hotel" factor="400" />
@@ -214,8 +222,6 @@ export function Hallway3() {
   const stackRef = useRef(null);
   const trackRef = useRef(null);
   const [dims, setDims] = useState({ max: 0, h: 0 });
-  const [room, setRoom] = useState(1);
-  const [deg, setDeg] = useState(0);
 
   useLayoutEffect(() => {
     if (!wide) return undefined;
@@ -238,10 +244,6 @@ export function Hallway3() {
   const { scrollYProgress: p } = useScroll({ target: wide ? runRef : stackRef, offset: wide ? ['start start', 'end end'] : ['start end', 'end start'] });
   const x = useTransform(p, (v) => -v * dims.max);
   const sway = useTransform(p, (v) => Math.sin(v * Math.PI * 6) * 2.5);
-  useMotionValueEvent(p, 'change', (v) => {
-    setRoom(Math.min(projects.length, Math.max(1, Math.round(v * (projects.length - 1)) + 1)));
-    setDeg(Math.round(v * 360) % 360);
-  });
 
   const intro = (
     <div className="inc-hall__intro">
@@ -301,8 +303,10 @@ export function Hallway3() {
             </div>
           </motion.div>
           <div className="inc-hall__hud" aria-hidden="true">
-            <span>Room {String(room).padStart(2, '0')} / {projects.length}</span>
-            <span>Roll ↻ {deg}°</span>
+            <span>
+              Room <Live value={p} format={(v) => String(Math.min(projects.length, Math.max(1, Math.round(v * (projects.length - 1)) + 1))).padStart(2, '0')} /> / {projects.length}
+            </span>
+            <span>Roll ↻ <Live value={p} format={(v) => `${Math.round(v * 360) % 360}°`} /></span>
           </div>
         </div>
       </div>

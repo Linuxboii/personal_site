@@ -145,6 +145,6 @@ export default function Hallway({ progress, className = '' }) {
         });
       },
     };
-  }, []);
+  }, [], { maxDpr: 1.25, antialias: false });
   return <canvas ref={ref} className={`inc-gl ${className}`} aria-hidden="true" />;
 }
