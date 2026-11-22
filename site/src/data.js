@@ -7,7 +7,7 @@ export const profile = {
   location: 'Hyderabad, India',
   emailPrimary: 'sushanth@avlokai.com',
   emailFallback: 'ksushanth477@gmail.com',
-  phone: '+91 8247686179',
+  phone: '+91 9346672015',
   socials: {
     github: 'https://github.com/Linuxboii',
     linkedin: 'https://www.linkedin.com/in/sushanthkasturi/',
