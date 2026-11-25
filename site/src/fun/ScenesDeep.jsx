@@ -170,7 +170,7 @@ const projMeta = [
 ];
 
 function tone(p) {
-  if (p.role === 'Playground') return 'teal';
+  if (p.role === 'Playground' || p.role === 'Tool') return 'teal';
   if (p.role === 'Product' || p.role === 'Founder') return 'amber';
   if (p.role === 'Security build' || p.role === 'Training engagements') return 'steel';
   return 'red';
